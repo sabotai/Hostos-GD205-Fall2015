@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-//script adapted from Robert Yang's Building Worlds
+//script modified and adapted from Robert Yang's Building Worlds
 
 
 // 1) we made the fish go to a destination
@@ -15,8 +15,8 @@ public class Fish : MonoBehaviour {
 	public Vector3 destination;
 	public float speed = 0.2f;
 	
-	public GameObject blueprint;
-	public GameObject foodPellet; // assign in inspector
+	public GameObject blueprint; //assign fish prefab
+	public GameObject foodPellet; // assign gameobject in inspector
 	Vector3 nearbyPosition;
 	
 	// Update is called once per frame
