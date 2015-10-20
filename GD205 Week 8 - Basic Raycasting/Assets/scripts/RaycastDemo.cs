@@ -10,6 +10,7 @@ public class RaycastDemo : MonoBehaviour {
 		// generate a ray based on camera position + mouse cursor screen coordinate
 		Ray ray = Camera.main.ScreenPointToRay ( Input.mousePosition );
 		
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
 		// reserve space for info about where the raycast hit a thing, what it hit, etc.
 		RaycastHit rayHit = new RaycastHit(); // initialize forensics data container
 		
