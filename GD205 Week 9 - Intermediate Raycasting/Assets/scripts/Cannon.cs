@@ -8,22 +8,29 @@ public class Cannon : MonoBehaviour {
 	public float bulletForce = 3000f; //this is the bullet speed.  3000 is the default
 
 	bool rotateToClick = false;
-	Quaternion originalRot;
+
 	Quaternion newRot;
 
 	Rigidbody bullet;
 	float rotCount = 0f;
+	void Start(){
+		//this boolean just lets the script know when it should be moving into position
+		//true = keep moving towards target; false = stop moving
+		rotateToClick = false;
+	}
 
 	// Update is called once per frame
 	void Update () {
 		// generate a ray based on camera position + mouse cursor screen coordinate
-		Ray ray = Camera.main.ScreenPointToRay ( Input.mousePosition );
+		Ray ourRay = Camera.main.ScreenPointToRay ( Input.mousePosition );
 		
 		// reserve space for info about where the raycast hit a thing, what it hit, etc.
+		// it will start off as an empty container that hit information will be recorded into
 		RaycastHit rayHit = new RaycastHit(); // initialize forensics data container
 		
 		// actually shoot the raycast, 1000 is how far the raycast can go
-		if ( Physics.Raycast ( ray, out rayHit, 1000f ) && Input.GetMouseButtonDown (0) ) {
+		// which ray to cast? ourRay. which out to send hit info?  rayHit.  how far should the ray go? 1000 units
+		if ( Physics.Raycast ( ourRay, out rayHit, 1000f ) && Input.GetMouseButtonDown (0) ) {
 			
 			newRot = Quaternion.LookRotation(rayHit.point - transform.position);
 
@@ -45,7 +52,10 @@ public class Cannon : MonoBehaviour {
 
 				//make the new bullet go forward by this much force
 				newBullet.AddForce(bulletOrigin.forward * bulletForce);
+
+				//play the boom sound that is contained in an AudioSource script
 				GetComponent<AudioSource>().Play();
+
 				//stop rotating every frame
 				rotateToClick = false;
 			}
