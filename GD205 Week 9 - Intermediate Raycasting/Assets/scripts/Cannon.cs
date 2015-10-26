@@ -45,7 +45,7 @@ public class Cannon : MonoBehaviour {
 
 				//make the new bullet go forward by this much force
 				newBullet.AddForce(bulletOrigin.forward * bulletForce);
-
+				GetComponent<AudioSource>().Play();
 				//stop rotating every frame
 				rotateToClick = false;
 			}
