@@ -4,15 +4,18 @@ using System.Collections;
 public class Cannon : MonoBehaviour {
 
 	public Rigidbody bulletBlueprint; // assign in inspector
-	public Transform bulletOrigin; //position an object to use its position as a spawn point
-	public float bulletForce = 3000f; //this is the bullet speed.  3000 is the default
+	public Transform bulletOrigin; // position an object to use its position as a spawn point
+	public float bulletForce = 3000f; // this is the bullet speed.  3000 is the default
 
 	bool rotateToClick = false;
 
+	//something to store the destination rotation
 	Quaternion newRot;
 
-	Rigidbody bullet;
+	// store the percentage achieved in the movement towards our new rotation
 	float rotCount = 0f;
+
+
 	void Start(){
 		//this boolean just lets the script know when it should be moving into position
 		//true = keep moving towards target; false = stop moving
@@ -31,8 +34,9 @@ public class Cannon : MonoBehaviour {
 		// actually shoot the raycast, 1000 is how far the raycast can go
 		// which ray to cast? ourRay. which out to send hit info?  rayHit.  how far should the ray go? 1000 units
 		if ( Physics.Raycast ( ourRay, out rayHit, 1000f ) && Input.GetMouseButtonDown (0) ) {
-			
+			// set the new rotation in our variable
 			newRot = Quaternion.LookRotation(rayHit.point - transform.position);
+
 
 			rotateToClick = true; //trigger the rotation of our camera and its children (our shooting thing)
 			rotCount = 0; //reset our counter representing our rotation's % completed
